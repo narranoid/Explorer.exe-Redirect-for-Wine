@@ -44,8 +44,8 @@ With some knowledge of bash scripts it should be straight forward to adjust it t
 
 **If Wine struggles to use the custom explorer.exe converted from explorer-adapter.bat:**
 
-Try to modify the explorer-adapter.at beneath the execute_fallback area and tinker how to invoke the actual explorer.exe in a different way if needed.
-Then convert the bat script again to an exe as explained in the Build Instructions.
+Try to modify the explorer-adapter.bat beneath the execute_fallback area and tinker how to invoke the actual explorer.exe in a different way if needed.
+Then convert the batchfile again to an exe as explained in the [Build Instructions](#Build-Instructions).
 
 
 ## Build Instructions
