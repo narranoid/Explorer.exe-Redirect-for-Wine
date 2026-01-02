@@ -1,0 +1,48 @@
+#!/bin/sh
+
+# Process arguments
+if [[ "$1" == "-s" || "$1" == "--select" ]]; then
+    use_select=true
+    path_args=("${@:2}")
+else
+    use_select=false
+    path_args=("$@")
+fi
+
+# Determine command
+# --- Look for desktop entry command
+desktop_file=$(xdg-mime query default inode/directory)
+for dir in ${XDG_DATA_DIRS//:/ }; do
+    dir=${dir%/}  # Remove trailing slash if present
+    if [ -f "$dir/applications/$desktop_file" ]; then
+        exec_line=$(grep -m 1 "^Exec=" "$dir/applications/$desktop_file")
+        exec_command=${exec_line#Exec=}
+        break
+    fi
+done
+# --- Assign default command
+if [[ -z "$exec_command" ]]; then
+    exec_command="nautilus"
+fi
+
+# Define arguments
+if [[ $use_select == true ]]; then
+    # This will work with nautilus and potentially other file managers.
+    # Certain file managers may not support selection at all or need adjustment here.
+    exec_args="--select ${path_args[0]}"
+else
+    exec_args="${path_args[0]}"
+fi
+
+# Build command with arguments
+if echo "$exec_command" | grep -q '%[uUfF]'; then
+    exec_command=${exec_command//%U/$exec_args}
+    exec_command=${exec_command//%u/$exec_args}
+    exec_command=${exec_command//%F/$exec_args}
+    exec_command=${exec_command//%f/$exec_args}
+else
+    exec_command="$exec_command $exec_args"
+fi
+
+# Execute command
+eval "$exec_command"
