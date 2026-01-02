@@ -1,5 +1,5 @@
 > [!WARNING]
-> As converting a bat file to an exe seems a bit unsafe (Windows Defender lieks to flag programs that do it) I am working on a solution in C instead. Consider not using this until then (release .exe has been removed)
+> As converting a bat file to an exe seems a bit unsafe (Windows Defender tends to flag programs that do it) I am working on a solution in C instead. Consider not using this until then (release .exe has been removed)
 
 # Explorer.exe Redirect for Wine
 
