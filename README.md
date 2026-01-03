@@ -37,7 +37,7 @@ Specifically, the redirect invokes explorer-redirect/redirect-path which is a ba
 Try to modify the explorer-redirect/redirect-path script so it simply calls your file manager. The script receives an optional --select as parameter and the file path as the other parameter.
 With some knowledge of bash scripts it should be straight forward to adjust it to your needs. 
 
-**If Wine struggles to use the custom `explorer.exe` converted from explorer-adapter.bat:**
+**If Wine struggles to use the custom `explorer.exe`:**
 
 Try to modify the function `execute_fallback_command` in `explorer-adapter/explorer-adapter.c` and tinker how to invoke the original `explorer.exe` in a different way if needed.
 Then rebuild as instructed in the [Build Instructions](#Build-Instructions).
