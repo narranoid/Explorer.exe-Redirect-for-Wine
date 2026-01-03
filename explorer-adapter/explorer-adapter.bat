@@ -1,5 +1,9 @@
 @echo off
 
+:: Legacy script used initially to make the explorer.exe adapter.
+:: Due to many bat to exe conversion tools being flagged by antivirus software
+:: I build a C-based version instead. This is still here in case anyone finds it useful
+
 setlocal enabledelayedexpansion
 if "%~1"=="" goto :execute_fallback
 
@@ -41,7 +45,11 @@ goto :execute_fallback
 :: Convert Windows path to Unix path
 set "unix_path="
 for /f "delims=" %%a in ('winepath.exe --unix "!target_path!"') do set "unix_path=%%a"
-if defined unix_path (   
+if defined unix_path (
+    set "redirect_handler=~/.wine"
+    if not "%WINEPREFIX%"=="" (
+        set "redirect_handler=!WINEPREFIX!"
+    )
     set "redirect_handler=%WINEPREFIX%"
     if "!redirect_handler:~-1!"=="/" set "redirect_handler=!redirect_handler:~0,-1!"
     set "redirect_handler=!redirect_handler!/explorer-redirect/redirect-path"
